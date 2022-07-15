@@ -1,0 +1,41 @@
+name: Workflow test
+
+on:
+  pull_request:
+    types: [opened, reopened]
+  issues:
+    types: [opened]
+  pull_request_review:
+    types: [submitted]
+
+env:
+  API_TEST: cool!
+
+jobs:
+  test-environment-variable:
+    runs-on: ubuntu-latest
+    env:
+      JOB_LEVEL: Wow
+    steps:
+      - run: echo top-level env:$API_TEST
+      - run: echo job-level env:$JOB_LEVEL
+  issue-notification:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo issue opened
+  run-only-for-feature-branch:
+    if: startsWith(github.head_ref, 'feature/')
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo this branch starts with 'feature'
+  run-only-for-merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo PR merged
+          echo this is cool
+  run-only-for-request-review:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo pr review requested
