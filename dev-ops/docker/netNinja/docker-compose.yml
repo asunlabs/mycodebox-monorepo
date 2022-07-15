@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  net-ninja :
+    # build lets docker compose know where Dockerfile is
+    build : ./
+    # set a running container name
+    container_name: netNinja_compose
+    # port mapping for localhost and container
+    ports:
+      - '4000:4000'
+    # directory mapping for localhost and container
+    volumes:
+      - ./:/app
+      - /app/node_modules
+  react-docker: 
+    build : ./react-docker
+    container_name: react-docker_compose
+    ports:
+      - '3000:3000'
+    # make docker interactive mode(opposite of detach flag)
+    stdin_open: true 
+    tty: true

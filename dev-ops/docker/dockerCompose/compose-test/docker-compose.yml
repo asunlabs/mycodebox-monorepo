@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    restart: always
+    ports:
+      - "8000:5000"
+    volumes:
+      - .:/code # mount a current host directory into /code directory in container
+  redis:
+    image: "redis:alpine" 
