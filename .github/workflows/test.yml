@@ -1,6 +1,8 @@
 name: Workflow test
 
 on:
+  workflow_dispatch:
+
   pull_request:
     types: [opened, reopened]
   issues:
