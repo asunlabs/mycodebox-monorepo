@@ -22,7 +22,6 @@ jobs:
       - run: echo top-level env:$API_TEST
       - run: echo job-level env:$JOB_LEVEL
   issue-notification:
-    if: github.event.issues.opened == true
     runs-on: ubuntu-latest
     steps:
       - run: echo issue opened
@@ -38,8 +37,8 @@ jobs:
       - run: |
           echo PR merged
           echo this is cool
-  run-only-for-request-review:
-    if: github.event.pull_request_review.submitted == true
+  run-only-for-pr-review:
+    if: github.event.review.state == 'submitted'
     runs-on: ubuntu-latest
     steps:
       - run: echo pr review requested
